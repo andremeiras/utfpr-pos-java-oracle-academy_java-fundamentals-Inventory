@@ -7,6 +7,7 @@ public class Produto {
 	private String nomeProduto;
 	private int quantidadeEstoque;
 	private double precoUnitario;
+	private boolean ativo = true;
 
 	/*
 	 * Construtor padrão que permitirá que o compilador inicialize os valores
@@ -77,14 +78,36 @@ public class Produto {
 	} // método mutador que atribui valor à variável precoUnitario com o valor passado
 		// por parâmetro do mesmo tipo da variável local
 
-	@Override
+	public boolean isAtivo() {
+		return ativo;
+	} // método acessor para a variável booleana ativo
+
+	public void setAtivo(boolean ativo) {
+		this.ativo = ativo;
+	} // método mutador que irá atribuir o valor true ou false para a variável local
+
+	// método para calcular o inventário do produto
+	public double getInventoryValue() {
+		return quantidadeEstoque * precoUnitario;
+	}
+
 	public String toString() {
 		String descricaoProduto = "";
 
-		descricaoProduto = "Número do Item \t\t : " + this.numeroItem + "\n" + "Nome \t\t\t : " + this.nomeProduto + "\n"
-				+ "Quantidade em estoque \t : " + this.quantidadeEstoque + "\n" + "Preço \t\t\t : " + this.precoUnitario
-				+ "\n";
-		
-		return descricaoProduto;
+		// variável que irá guardar o resultado amigável do produto ativo/descontinuado
+		String tempAtivo = "";
+
+		// Informar de forma amigável no console se o produto está ativo/descontinuado
+		if (this.ativo) {
+			tempAtivo = "Ativo";
+		} else {
+			tempAtivo = "Descontinuado";
+		}
+
+		return descricaoProduto = "---------- INFORMAÇÕES DO PRODUTO -----------\n" + "Número do Item \t\t : "
+				+ this.numeroItem + "\n" + "Nome \t\t\t : " + this.nomeProduto + "\n" + "Quantidade em estoque \t : "
+				+ this.quantidadeEstoque + "\n" + "Preço \t\t\t : " + this.precoUnitario + "\n"
+				+ "Valor do Estoque \t : " + getInventoryValue() + "\n"
+				+ "Status do Produto \t : " + tempAtivo + "\n" + "---------------------------------------------" + "\n";
 	}
 }
