@@ -8,7 +8,7 @@ public class Produto {
 	private int quantidadeEstoque;
 	private double precoUnitario;
 	private boolean ativo = true;
-
+	
 	/*
 	 * Construtor padrão que permitirá que o compilador inicialize os valores
 	 * padrão. OBS: é necessário informar o construtor vazio quando tem mais de um
