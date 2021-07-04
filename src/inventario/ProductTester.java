@@ -1,60 +1,68 @@
 package inventario;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class ProductTester {
 
 	public static void main(String[] args) {
 
-		// Variável que irá solicitar entrada de dados via teclado
-		Scanner scStr = new Scanner(System.in);
-		Scanner scInt = new Scanner(System.in);
-		Scanner scDou = new Scanner(System.in);
+		Scanner sc = new Scanner(System.in);
 
-		int maxSize = -1;
-
-		// variáveis temporárias para receber os valores digitados do produto
 		int tempNumber;
 		String tempName;
 		int tempQty;
 		double tempPrice;
-		do {
-			try {
-				System.out.println("Insira o número de produtos que gostaria de adicionar");
-				System.out.println("Insira 0 (zero) se não quiser adicionar produtos:");
-				maxSize = scInt.nextInt();
+
+		int maxSize = -1;
+
+		System.out.println("Insira o número de produtos que gostaria de adicionar");
+
+		try {
+			do {
+				System.out.print("Insira 0 (zero) se não quiser adicionar produtos: ");
+				maxSize = sc.nextInt();
 
 				if (maxSize < 0) {
-					System.out.println("Valor inválido!");
-				} else if (maxSize > 0) {
-					do {
-						System.out.print("[Produto nº " + maxSize + "]\n");
-						System.out.print("Número/Código do produto: ");
-						tempNumber = scInt.nextInt();
-						System.out.print("Nome do produto: ");
-						tempName = scStr.nextLine();
-						System.out.print("Quantidade: ");
-						tempQty = scInt.nextInt();
-						System.out.print("Valor: R$ ");
-						tempPrice = scDou.nextDouble();
-						System.out.println();
-						maxSize--;
-					} while (maxSize > 0);
+					System.out.println("Valor incorreto inserido");
 				} else if (maxSize == 0) {
 					System.out.println("Não há produtos!");
 				} else {
-					System.out.println("Saindo do programa!");
+
+					Produto[] produtos = new Produto[maxSize];
+
+					for (int i = 0; i < produtos.length; i++) {
+
+						// sc.close(); -- IllegalStateException
+
+						System.out.print("[ PRODUTO - " + (i + 1) + " ]\n");
+
+						System.out.print("Número do produto: ");
+						tempNumber = sc.nextInt();
+
+						System.out.print("Nome: ");
+						tempName = sc.next();
+
+						System.out.print("Quantidade: ");
+						tempQty = sc.nextInt();
+
+						System.out.print("Preço: R$ ");
+						tempPrice = sc.nextDouble();
+
+						produtos[i] = new Produto(tempNumber, tempName, tempQty, tempPrice);
+
+					}
+					// mostrar os produtos inseridos anteriormente.
+					for (Produto produto : produtos) {
+						System.out.println(produto);
+					}
 				}
-			} catch (Exception e) {
-				e.printStackTrace();
-				System.out.println("Tipo incorreto de dados inserido!");
+			} while (maxSize < 0);
+		} catch (InputMismatchException e) {
+			System.out.println("Tipo incorreto de dados inserido!");
+			e.printStackTrace();
+			sc.close();
+		}
 
-				break;
-			}
-		} while (maxSize < 0);
-		System.out.println("Fim do programa!");
 	}
-
 }
