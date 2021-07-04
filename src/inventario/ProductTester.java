@@ -9,7 +9,9 @@ public class ProductTester {
 	public static void main(String[] args) {
 
 		// Variável que irá solicitar entrada de dados via teclado
-		Scanner in = new Scanner(System.in);
+		Scanner scStr = new Scanner(System.in);
+		Scanner scInt = new Scanner(System.in);
+		Scanner scDou = new Scanner(System.in);
 
 		int maxSize = -1;
 
@@ -22,21 +24,21 @@ public class ProductTester {
 			try {
 				System.out.println("Insira o número de produtos que gostaria de adicionar");
 				System.out.println("Insira 0 (zero) se não quiser adicionar produtos:");
-				maxSize = in.nextInt();
-				
+				maxSize = scInt.nextInt();
+
 				if (maxSize < 0) {
 					System.out.println("Valor inválido!");
 				} else if (maxSize > 0) {
 					do {
-						System.out.println("[Produto nº " + maxSize + "]");
+						System.out.print("[Produto nº " + maxSize + "]\n");
 						System.out.print("Número/Código do produto: ");
-						tempNumber = in.nextInt();
+						tempNumber = scInt.nextInt();
 						System.out.print("Nome do produto: ");
-						tempName = in.next();
+						tempName = scStr.nextLine();
 						System.out.print("Quantidade: ");
-						tempQty = in.nextInt();
+						tempQty = scInt.nextInt();
 						System.out.print("Valor: R$ ");
-						tempPrice = in.nextDouble();
+						tempPrice = scDou.nextDouble();
 						System.out.println();
 						maxSize--;
 					} while (maxSize > 0);
@@ -48,7 +50,7 @@ public class ProductTester {
 			} catch (Exception e) {
 				e.printStackTrace();
 				System.out.println("Tipo incorreto de dados inserido!");
-				in.close();
+
 				break;
 			}
 		} while (maxSize < 0);
